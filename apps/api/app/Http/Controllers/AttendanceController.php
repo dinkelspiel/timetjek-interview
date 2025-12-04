@@ -101,9 +101,14 @@ class AttendanceController extends Controller
         $newCheckIn = Carbon::parse($validated['check_in_at'])->format('Y-m-d H:i:s');
         $newCheckOut = Carbon::parse($validated['check_out_at'])->format('Y-m-d H:i:s');
 
+        $oldCheckoutMessage = "";
+        if ($attendance->check_out_at != null) {
+            $oldCheckoutMessage = " and " . $attendance->check_out_at->format('Y-m-d H:i:s');
+        }
+
         UserLog::create([
             "user_id" => $request->user()->id,
-            "message" => "Updated check in and check out time from {$attendance->check_in_at->format('Y-m-d H:i:s')} and {$attendance->check_out_at->format('Y-m-d H:i:s')} to {$newCheckIn} and {$newCheckOut} because of {$request->json("reason")}"
+            "message" => "Updated check in and check out time from {$attendance->check_in_at->format('Y-m-d H:i:s')}{$oldCheckoutMessage} to {$newCheckIn} and {$newCheckOut} because of {$request->json("reason")}"
         ]);
 
         $attendance->update([

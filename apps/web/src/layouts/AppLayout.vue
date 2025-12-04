@@ -31,11 +31,11 @@ const props = defineProps<{
 <template>
   <div class="bg-slate-100">
     <div
-      class="min-[1368px]:w-[1368px] mx-auto min-h-dvh p-4 xl:p-8 gap-8 grid grid-rows-[52px_1fr] xl:grid-cols-[min-content_1fr]"
+      class="min-[1368px]:w-[1368px] mx-auto min-h-dvh p-4 xl:p-8 gap-8 grid grid-rows-[52px_1fr] xl:grid-rows-1 xl:grid-cols-[min-content_1fr]"
     >
-      <div class="w-[250px] flex gap-4 xl:grid items-center">
+      <div class="w-[250px] flex h-fit gap-4 xl:grid items-center">
         <div
-          class="h-12 bg-white text-slate-700 font-bold shadow-sm rounded-md px-3 py-1.5 items-center flex justify-center gap-4"
+          class="h-12 text-slate-700 font-bold rounded-md px-3 py-1.5 items-center flex justify-center gap-4"
         >
           <Calendar class="size-4 text-slate-400" />
           Timetjek
