@@ -95,15 +95,14 @@ const getHeightStyleForAttendance = (
   startHour: number,
   attendance: Attendance
 ) => {
-  const checkIn =
-    attendance.check_in_at < getStartOfDay(day)
-      ? getStartOfDay(day)
-      : attendance.check_in_at;
-  const checkOut = attendance.check_out_at
-    ? attendance.check_out_at > getEndOfDay(day)
-      ? getEndOfDay(day)
-      : attendance.check_out_at
-    : new Date();
+  let checkIn = attendance.check_in_at;
+
+  // Check out is null on active attendances so we need to guard for that
+  let checkOut = attendance.check_out_at ? attendance.check_out_at : new Date();
+
+  // This function calculates the height for the attendance for one day so we clamp the times to be within this days limits
+  if (checkIn < getStartOfDay(day)) checkIn = getStartOfDay(day);
+  if (checkOut > getEndOfDay(day)) checkOut = getEndOfDay(day);
 
   const hoursAlive =
     (checkOut.getTime() - checkIn.getTime()) / millisecondsInAnHour;
